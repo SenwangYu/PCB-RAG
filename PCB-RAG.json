@@ -1,0 +1,321 @@
+{
+  "dataset_description": "面向大语言模型PCB设计的非结构化数据（Datasheet）信息提取能力测试集",
+  "total_chips": 15,
+  "test_cases": [
+    {
+      "id": 1,
+      "chip_info": {
+        "model": "TPS5430",
+        "manufacturer": "TI",
+        "description": "降压型 DC-DC 转换器",
+        "url": "https://www.ti.com/product/TPS5430"
+      },
+      "electrical_parameter_task": {
+        "question": "芯片内部的基准电压（Vref）典型值是多少？",
+        "expected_answer": "1.221V",
+        "evaluation_criteria": "数值与单位必须完全一致"
+      },
+      "layout_constraint_task": {
+        "question": "续流二极管（Catch Diode）在 PCB 布局时应该如何放置？",
+        "expected_key_points": [
+          "靠近 SW 引脚",
+          "靠近 GND 引脚",
+          "最小化寄生电感/高频环路面积"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "chip_info": {
+        "model": "LM358",
+        "manufacturer": "TI",
+        "description": "双路运算放大器",
+        "url": "https://www.ti.com/product/LM358"
+      },
+      "electrical_parameter_task": {
+        "question": "在室温（25°C）下，该芯片的最大输入失调电压（Input Offset Voltage）是多少？",
+        "expected_answer": "3mV 或 7mV (视具体后缀版本)",
+        "evaluation_criteria": "答出 3mV 或 7mV 均可算作命中"
+      },
+      "layout_constraint_task": {
+        "question": "为了避免寄生电容导致电路振荡，反馈电阻（Feedback Resistor）在布局时应注意什么？",
+        "expected_key_points": [
+          "走线尽可能短",
+          "紧贴反相输入端放置"
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "chip_info": {
+        "model": "LM317",
+        "manufacturer": "TI",
+        "description": "可调线性稳压器",
+        "url": "https://www.ti.com/product/LM317"
+      },
+      "electrical_parameter_task": {
+        "question": "为了维持稳压，该芯片所需的最小负载电流（Minimum load current）典型值和最大值分别是多少？",
+        "expected_answer": "典型值 3.5mA，最大值 10mA",
+        "evaluation_criteria": "需同时答对典型值和最大值"
+      },
+      "layout_constraint_task": {
+        "question": "如果为了提高纹波抑制比而在 ADJ 引脚添加了旁路电容，该电容的接地端应该怎么处理？",
+        "expected_key_points": [
+          "连接到干净的地/安静的地",
+          "避免连接到有大电流流过的高噪声地"
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "chip_info": {
+        "model": "MP1584",
+        "manufacturer": "MPS",
+        "description": "高频降压型 DC-DC",
+        "url": "https://www.monolithicpower.com/en/mp1584.html"
+      },
+      "electrical_parameter_task": {
+        "question": "该降压芯片支持的最大开关频率（Switching Frequency）是多少？",
+        "expected_answer": "1.5 MHz",
+        "evaluation_criteria": "数值与单位必须完全一致"
+      },
+      "layout_constraint_task": {
+        "question": "输入滤波电容的 GND 端与芯片的 GND 引脚应该如何连接？",
+        "expected_key_points": [
+          "极短距离直接连接",
+          "使用大面积覆铜连接以降低阻抗"
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "chip_info": {
+        "model": "STM32F103C8T6",
+        "manufacturer": "ST",
+        "description": "32位微控制器",
+        "url": "https://www.st.com/en/microcontrollers-microprocessors/stm32f103c8.html"
+      },
+      "electrical_parameter_task": {
+        "question": "芯片的正常工作供电电压（VDD）范围是多少？",
+        "expected_answer": "2.0V 至 3.6V",
+        "evaluation_criteria": "需完整答出电压区间"
+      },
+      "layout_constraint_task": {
+        "question": "针对 VDD/VSS 的电源去耦电容（Decoupling Capacitors），数据手册对布局有什么具体要求？",
+        "expected_key_points": [
+          "每个 VDD/VSS 引脚对配置一个电容",
+          "尽可能靠近芯片引脚放置"
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "chip_info": {
+        "model": "CH340G",
+        "manufacturer": "WCH",
+        "description": "USB 转串口芯片",
+        "url": "https://www.wch.cn/downloads/CH340DS1_PDF.html"
+      },
+      "electrical_parameter_task": {
+        "question": "当使用外部晶振时，连接在 XI 和 XO 引脚上的负载电容推荐值是多少？",
+        "expected_answer": "22pF",
+        "evaluation_criteria": "答出典型值即可"
+      },
+      "layout_constraint_task": {
+        "question": "USB 的 D+ 和 D- 差分信号线在布线时需要遵守哪些规则？",
+        "expected_key_points": [
+          "平行走线",
+          "保持等长",
+          "控制差分阻抗约 90 欧姆"
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "chip_info": {
+        "model": "INA219",
+        "manufacturer": "TI",
+        "description": "电流/功率监控器",
+        "url": "https://www.ti.com/product/INA219"
+      },
+      "electrical_parameter_task": {
+        "question": "VBUS 引脚所能承受的最大测量总线电压是多少？",
+        "expected_answer": "26V",
+        "evaluation_criteria": "数值与单位必须完全一致"
+      },
+      "layout_constraint_task": {
+        "question": "为了保证电流测量的精度，外部采样电阻（Shunt Resistor）的布线应采用什么走线方式？",
+        "expected_key_points": [
+          "开尔文连接/四线制连接",
+          "走线从电阻焊盘的内侧引出"
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "chip_info": {
+        "model": "BQ24072",
+        "manufacturer": "TI",
+        "description": "锂电池充电管理芯片",
+        "url": "https://www.ti.com/product/BQ24072"
+      },
+      "electrical_parameter_task": {
+        "question": "如果要将快速充电电流设定为 1A，ISET 引脚到地之间应该接多大的电阻（KISET 典型值为 890）？",
+        "expected_answer": "890 Ω",
+        "evaluation_criteria": "数值需在 890 欧姆左右"
+      },
+      "layout_constraint_task": {
+        "question": "芯片底部的散热焊盘（Thermal Pad）在 PCB 上应该如何处理？",
+        "expected_key_points": [
+          "焊接在接地的 PCB 铜层上",
+          "打足量散热过孔 (Thermal Vias) 连接到内部地层"
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "chip_info": {
+        "model": "L298N",
+        "manufacturer": "ST",
+        "description": "双H桥电机驱动器",
+        "url": "https://www.st.com/en/motor-drivers/l298.html"
+      },
+      "electrical_parameter_task": {
+        "question": "逻辑控制部分的供电电压（VSS）最大额定值是多少？",
+        "expected_answer": "7V",
+        "evaluation_criteria": "数值与单位必须完全一致"
+      },
+      "layout_constraint_task": {
+        "question": "连接电机的高电流输出端走线应该遵循什么原则？",
+        "expected_key_points": [
+          "走线必须足够宽",
+          "走线尽量短以降低线损"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "chip_info": {
+        "model": "MAX3232",
+        "manufacturer": "Analog Devices",
+        "description": "RS-232 收发器",
+        "url": "https://www.analog.com/en/products/max3232.html"
+      },
+      "electrical_parameter_task": {
+        "question": "当在 3.3V 供电下工作时，推荐使用的电荷泵电容（C1-C4）容值是多少？",
+        "expected_answer": "0.1μF",
+        "evaluation_criteria": "数值与单位必须完全一致"
+      },
+      "layout_constraint_task": {
+        "question": "V+ 和 V- 引脚上的储能电容应放置在何处？",
+        "expected_key_points": [
+          "尽可能靠近 IC 的对应引脚放置"
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "chip_info": {
+        "model": "MCP6002",
+        "manufacturer": "Microchip",
+        "description": "轨到轨运算放大器",
+        "url": "https://www.microchip.com/en-us/product/MCP6002"
+      },
+      "electrical_parameter_task": {
+        "question": "该运算放大器的增益带宽积（GBWP）典型值是多少？",
+        "expected_answer": "1 MHz",
+        "evaluation_criteria": "数值与单位必须完全一致"
+      },
+      "layout_constraint_task": {
+        "question": "对于封装内未使用的运放通道，数据手册推荐如何处理其引脚状态？",
+        "expected_key_points": [
+          "接成电压跟随器形式",
+          "同相输入端接固定电位 (VDD 和 VSS 之间)",
+          "严禁引脚悬空"
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "chip_info": {
+        "model": "XL4015",
+        "manufacturer": "XLSEMI",
+        "description": "5A 降压型 DC-DC",
+        "url": "http://www.xlsemi.com"
+      },
+      "electrical_parameter_task": {
+        "question": "该芯片内部的固定开关频率是多少？",
+        "expected_answer": "180 kHz",
+        "evaluation_criteria": "数值与单位必须完全一致"
+      },
+      "layout_constraint_task": {
+        "question": "为了最小化电磁干扰（EMI），在布局时哪个节点的覆铜面积应该尽量小？",
+        "expected_key_points": [
+          "SW 节点 (开关节点) 的敷铜面积应尽可能小"
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "chip_info": {
+        "model": "L7805",
+        "manufacturer": "ST",
+        "description": "5V 线性稳压器",
+        "url": "https://www.st.com/en/power-management/l7805.html"
+      },
+      "electrical_parameter_task": {
+        "question": "该稳压器允许接入的最大绝对输入电压（Absolute Maximum Input Voltage）是多少？",
+        "expected_answer": "35V",
+        "evaluation_criteria": "数值与单位必须完全一致"
+      },
+      "layout_constraint_task": {
+        "question": "如果该稳压芯片距离电源的主滤波电容较远，输入端必须补充什么元件？",
+        "expected_key_points": [
+          "在紧靠 IN 引脚处添加输入旁路电容"
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "chip_info": {
+        "model": "TPS7A49",
+        "manufacturer": "TI",
+        "description": "超低噪声 LDO",
+        "url": "https://www.ti.com/product/TPS7A49"
+      },
+      "electrical_parameter_task": {
+        "question": "在满载（150mA）情况下，该 LDO 的最大压降（Dropout Voltage）是多少？",
+        "expected_answer": "400mV (或更低)",
+        "evaluation_criteria": "答出 400mV 即可"
+      },
+      "layout_constraint_task": {
+        "question": "为了确保 LDO 控制环路的稳定性，输出电容的布局有什么硬性要求？",
+        "expected_key_points": [
+          "紧靠 OUT 引脚放置",
+          "注意 ESR 的要求限制"
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "chip_info": {
+        "model": "SY8120B",
+        "manufacturer": "Silergy",
+        "description": "高效同步降压转换器",
+        "url": "https://www.silergy.com"
+      },
+      "electrical_parameter_task": {
+        "question": "设定输出电压时使用的内部反馈基准电压（VFB）典型值是多少？",
+        "expected_answer": "0.6V",
+        "evaluation_criteria": "数值与单位必须完全一致"
+      },
+      "layout_constraint_task": {
+        "question": "反馈电阻分压网络在布局时，应该如何避开干扰源？",
+        "expected_key_points": [
+          "反馈走线远离电感",
+          "反馈走线远离 SW 开关节点"
+        ]
+      }
+    }
+  ]
+}
