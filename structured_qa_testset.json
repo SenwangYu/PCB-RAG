@@ -1,0 +1,361 @@
+{
+  "dataset_description": "面向大语言模型PCB设计的结构化数据（工程封装库）精准检索与幻觉测试集（多答案版本，所有合法答案均来自 footprints_index.json）",
+  "total_components": 20,
+  "answer_policy": "回答命中 acceptable_footprints 中任意一个封装名称即可判定为正确；输出不在 footprints_index.json 中的封装名称视为幻觉错误。",
+  "test_cases": [
+    {
+      "id": 1,
+      "component_info": {
+        "model": "48-pin MCU with exposed pad",
+        "category": "复杂集成电路 (MCU)",
+        "description": "带散热焊盘的 48 引脚 LQFP 控制器"
+      },
+      "retrieval_task": {
+        "query": "请给出一个 48 引脚、7x7mm、0.5mm 间距、带 exposed pad 的 LQFP 微控制器可使用的封装名称。",
+        "acceptable_footprints": [
+          "LQFP-48-1EP_7x7mm_P0.5mm_EP3.6x3.6mm",
+          "LQFP-48-1EP_7x7mm_P0.5mm_EP3.6x3.6mm_ThermalVias"
+        ],
+        "evaluation_criteria": "答案必须命中上述任一 LQFP-48-1EP 封装；若回答为普通 LQFP-48 或 QFN 等其他封装则视为错误。"
+      }
+    },
+    {
+      "id": 2,
+      "component_info": {
+        "model": "ESP32-WROOM-32 family",
+        "category": "复杂集成电路 (无线模块)",
+        "description": "ESP32-WROOM-32 系列射频模块"
+      },
+      "retrieval_task": {
+        "query": "设计中准备选用 ESP32-WROOM-32 系列模块，请给出合法模块封装名称。",
+        "acceptable_footprints": [
+          "ESP32-WROOM-32",
+          "ESP32-WROOM-32D",
+          "ESP32-WROOM-32E",
+          "ESP32-WROOM-32U",
+          "ESP32-WROOM-32UE"
+        ],
+        "evaluation_criteria": "命中任一 ESP32-WROOM-32 系列封装即可；回答成不存在的 38-pad module、QFN 等泛化名称视为错误。"
+      }
+    },
+    {
+      "id": 3,
+      "component_info": {
+        "model": "8-pin small-outline analog IC",
+        "category": "集成电路 (模拟/接口芯片)",
+        "description": "常见 8 引脚 SOIC/SOP 小外形封装芯片"
+      },
+      "retrieval_task": {
+        "query": "一个常见的 8 引脚贴片模拟芯片，若采用标准 SOIC/SOP 封装，在库中可接受哪些封装名？",
+        "acceptable_footprints": [
+          "SOIC-8_3.9x4.9mm_P1.27mm",
+          "SOP-8_3.9x4.9mm_P1.27mm",
+          "SOP-8_3.76x4.96mm_P1.27mm",
+          "SOIC-8_5.3x5.3mm_P1.27mm",
+          "SOIC-8_5.3x6.2mm_P1.27mm"
+        ],
+        "evaluation_criteria": "答案需为索引中的 8 引脚 SOIC/SOP 实体封装名之一；仅回答“SOIC-8”这类未出现在索引中的泛称不计为正确。"
+      }
+    },
+    {
+      "id": 4,
+      "component_info": {
+        "model": "8-pin power IC with exposed pad",
+        "category": "集成电路 (电源芯片)",
+        "description": "带散热焊盘的 HSOP-8 电源器件"
+      },
+      "retrieval_task": {
+        "query": "某降压芯片采用 8 引脚 HSOP 并带 exposed pad，请给出满足条件的封装名称。",
+        "acceptable_footprints": [
+          "HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.3x2.3mm",
+          "HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.3x2.3mm_ThermalVias",
+          "HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.1mm",
+          "HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.1mm_ThermalVias",
+          "Texas_HSOP-8-1EP_3.9x4.9mm_P1.27mm",
+          "Texas_HSOP-8-1EP_3.9x4.9mm_P1.27mm_ThermalVias"
+        ],
+        "evaluation_criteria": "必须命中带 1EP 的 HSOP-8 封装之一；若回答普通 SOP-8 或 SOIC-8 则视为错误。"
+      }
+    },
+    {
+      "id": 5,
+      "component_info": {
+        "model": "SOT-223 LDO / regulator",
+        "category": "集成电路 (LDO/稳压器)",
+        "description": "常见 SOT-223 线性稳压器"
+      },
+      "retrieval_task": {
+        "query": "对于常见 AMS1117/LDO 一类的三引脚加散热片贴片稳压器，库中可接受哪些 SOT-223 相关封装名？",
+        "acceptable_footprints": [
+          "SOT-223",
+          "SOT-223-3_TabPin2"
+        ],
+        "evaluation_criteria": "命中任一 SOT-223 三引脚变体即可；回答成 TO-252、SOT-89 等其他封装视为错误。"
+      }
+    },
+    {
+      "id": 6,
+      "component_info": {
+        "model": "BSS138-like MOSFET",
+        "category": "分立半导体 (MOSFET)",
+        "description": "常见三脚 SOT-23 小信号管"
+      },
+      "retrieval_task": {
+        "query": "一个类似 BSS138 的三脚贴片 MOS 管，若采用 SOT-23 家族封装，索引中哪些名称可判为正确？",
+        "acceptable_footprints": [
+          "SOT-23",
+          "SOT-23-3",
+          "SOT-23_Handsoldering"
+        ],
+        "evaluation_criteria": "需命中 SOT-23 三脚相关实体封装名；回答为 SOT-23-5、SOT-23-6 等引脚数不符封装视为错误。"
+      }
+    },
+    {
+      "id": 7,
+      "component_info": {
+        "model": "1N4148W-like diode",
+        "category": "分立半导体 (二极管)",
+        "description": "SOD-123 系列贴片二极管"
+      },
+      "retrieval_task": {
+        "query": "对于 1N4148W 一类的小信号贴片二极管，如果要求 SOD-123 封装，哪些索引名称可接受？",
+        "acceptable_footprints": [
+          "D_SOD-123",
+          "D_SOD-123F"
+        ],
+        "evaluation_criteria": "答案需命中 SOD-123 系列二极管封装；若答成 SMA、SOT-23 等其他封装视为错误。"
+      }
+    },
+    {
+      "id": 8,
+      "component_info": {
+        "model": "Resistor 0603",
+        "category": "基础无源器件 (电阻)",
+        "description": "0603 / 1608Metric 常规贴片电阻"
+      },
+      "retrieval_task": {
+        "query": "请给出一个 0603（1608Metric）贴片电阻在库中可接受的封装名称。",
+        "acceptable_footprints": [
+          "R_0603_1608Metric",
+          "R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+        ],
+        "evaluation_criteria": "命中任一 0603 电阻封装即可；若回答为 0402、0805 或未出现在索引中的简写视为错误。"
+      }
+    },
+    {
+      "id": 9,
+      "component_info": {
+        "model": "Capacitor 0402",
+        "category": "基础无源器件 (电容)",
+        "description": "0402 / 1005Metric 贴片电容"
+      },
+      "retrieval_task": {
+        "query": "在微型化设计里，一个 0402（1005Metric）MLCC 可对应哪些合法封装名？",
+        "acceptable_footprints": [
+          "C_0402_1005Metric",
+          "C_0402_1005Metric_Pad0.74x0.62mm_HandSolder"
+        ],
+        "evaluation_criteria": "必须命中索引中的 0402 电容封装之一；若回答为 0603、0201 等其他尺寸则视为错误。"
+      }
+    },
+    {
+      "id": 10,
+      "component_info": {
+        "model": "Inductor 0603",
+        "category": "基础无源器件 (电感)",
+        "description": "0603 / 1608Metric 贴片电感"
+      },
+      "retrieval_task": {
+        "query": "若一个小尺寸功率电感采用 0603（1608Metric）贴片形式，哪些封装名可作为正确答案？",
+        "acceptable_footprints": [
+          "L_0603_1608Metric",
+          "L_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
+        ],
+        "evaluation_criteria": "答案应命中 0603 电感封装之一；电阻/电容/保险丝同尺寸封装名不能混答。"
+      }
+    },
+    {
+      "id": 11,
+      "component_info": {
+        "model": "LED 0603",
+        "category": "光电器件 (LED)",
+        "description": "0603 / 1608Metric 贴片 LED"
+      },
+      "retrieval_task": {
+        "query": "一个 0603（1608Metric）贴片 LED，在哪些封装名称可判定为正确？",
+        "acceptable_footprints": [
+          "LED_0603_1608Metric",
+          "LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
+        ],
+        "evaluation_criteria": "必须命中 LED 专用 0603 封装；不能用 R_0603 或 C_0603 等其他器件家族替代。"
+      }
+    },
+    {
+      "id": 12,
+      "component_info": {
+        "model": "Fuse 0603",
+        "category": "基础无源器件 (保险丝)",
+        "description": "0603 / 1608Metric 贴片保险丝"
+      },
+      "retrieval_task": {
+        "query": "若使用 0603（1608Metric）的贴片保险丝，库中哪些封装名属于合法答案？",
+        "acceptable_footprints": [
+          "Fuse_0603_1608Metric",
+          "Fuse_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
+        ],
+        "evaluation_criteria": "需命中保险丝家族的 0603 封装；不能与电阻、电容、电感的同尺寸封装混淆。"
+      }
+    },
+    {
+      "id": 13,
+      "component_info": {
+        "model": "WS2812B family",
+        "category": "光电器件 (智能 RGB LED)",
+        "description": "WS2812B 系列不同尺寸的 PLCC4 封装"
+      },
+      "retrieval_task": {
+        "query": "若题目只要求回答 WS2812B 系列智能 RGB LED 的合法封装名，则命中哪些索引名称都算正确？",
+        "acceptable_footprints": [
+          "LED_WS2812B-2020_PLCC4_2.0x2.0mm",
+          "LED_WS2812B-Mini_PLCC4_3.5x3.5mm",
+          "LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+        ],
+        "evaluation_criteria": "任一 WS2812B 系列合法封装均可；若回答为普通 5050 LED 或未出现在索引中的泛称则视为错误。"
+      }
+    },
+    {
+      "id": 14,
+      "component_info": {
+        "model": "MPU6050-like InvenSense IMU",
+        "category": "集成电路 (传感器)",
+        "description": "InvenSense 24 引脚 4x4mm QFN 传感器"
+      },
+      "retrieval_task": {
+        "query": "一个类似 MPU6050 的 InvenSense 24 引脚 4x4mm 传感器，在库中哪些封装名可作为正确答案？",
+        "acceptable_footprints": [
+          "InvenSense_QFN-24_4x4mm_P0.5mm",
+          "InvenSense_QFN-24_4x4mm_P0.5mm_NoMask"
+        ],
+        "evaluation_criteria": "答案必须命中 InvenSense 专用 QFN-24 4x4mm 封装之一；其他厂商通用 QFN 名称不计为本题标准答案。"
+      }
+    },
+    {
+      "id": 15,
+      "component_info": {
+        "model": "Generic 24-pin EP package IC",
+        "category": "集成电路 (通用 QFN/TQFN/VQFN)",
+        "description": "24 引脚、4x4mm、0.5mm pitch、带 exposed pad 的无引脚器件"
+      },
+      "retrieval_task": {
+        "query": "请给出一个 24 引脚、4x4mm、0.5mm 间距、带 exposed pad 的 QFN 类器件可接受的封装名称。",
+        "acceptable_footprints": [
+          "QFN-24-1EP_4x4mm_P0.5mm_EP2.15x2.15mm",
+          "QFN-24-1EP_4x4mm_P0.5mm_EP2.15x2.15mm_ThermalVias",
+          "QFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm",
+          "QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm",
+          "QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias",
+          "QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm",
+          "QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm_ThermalVias",
+          "TQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm",
+          "TQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm_ThermalVias",
+          "VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm",
+          "VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm_ThermalVias",
+          "WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm",
+          "WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm_ThermalVias"
+        ],
+        "evaluation_criteria": "命中任一符合条件的 24-pin 4x4mm EP QFN 家族封装即可；若引脚数、尺寸或是否带 EP 不符，则视为错误。"
+      }
+    },
+    {
+      "id": 16,
+      "component_info": {
+        "model": "USB Type-C 16-pin receptacle",
+        "category": "接插件 (USB Type-C 母座)",
+        "description": "16Pin 贴片 Type-C Receptacle"
+      },
+      "retrieval_task": {
+        "query": "若题目要求一个 16Pin 的 USB Type-C 母座贴片封装，在索引中哪些封装名称可判为正确？",
+        "acceptable_footprints": [
+          "USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal",
+          "USB_C_Receptacle_HCTL_HC-TYPE-C-16P-01A",
+          "USB_C_Receptacle_JAE_DX07S016JA1R1500",
+          "USB_C_Receptacle_Palconn_UTC16-G",
+          "USB_C_Receptacle_XKB_U262-16XN-4BVC11"
+        ],
+        "evaluation_criteria": "必须命中 16Pin Type-C Receptacle 实体封装；Plug、6P、24P 或未在索引中的泛化答案均视为错误。"
+      }
+    },
+    {
+      "id": 17,
+      "component_info": {
+        "model": "Header 1x4 2.54mm",
+        "category": "接插件 (排针)",
+        "description": "1x4、2.54mm 间距排针/贴片排针"
+      },
+      "retrieval_task": {
+        "query": "一个 1x4、2.54mm 间距的连接器，如果题目只要求给出库中的合法 1x04 封装名，哪些答案都可以接受？",
+        "acceptable_footprints": [
+          "PinHeader_1x04_P2.54mm_Horizontal",
+          "PinHeader_1x04_P2.54mm_Vertical",
+          "PinHeader_1x04_P2.54mm_Vertical_SMD_Pin1Left",
+          "PinHeader_1x04_P2.54mm_Vertical_SMD_Pin1Right",
+          "FanPinHeader_1x04_P2.54mm_Vertical"
+        ],
+        "evaluation_criteria": "命中任一索引中的 1x04 / 2.54mm 真实封装即可；若阵列数、间距不符则视为错误。"
+      }
+    },
+    {
+      "id": 18,
+      "component_info": {
+        "model": "XT60 male connector",
+        "category": "接插件 (动力接口)",
+        "description": "XT60 公头板载连接器"
+      },
+      "retrieval_task": {
+        "query": "若设计需要一个板载 XT60 公头，回答哪些公头封装名称都可判对？",
+        "acceptable_footprints": [
+          "AMASS_XT60-M_1x02_P7.20mm_Vertical",
+          "AMASS_XT60PW-M_1x02_P7.20mm_Horizontal"
+        ],
+        "evaluation_criteria": "必须命中 XT60 公头（M）封装之一；若回答成母座（F）或其他接口系列则视为错误。"
+      }
+    },
+    {
+      "id": 19,
+      "component_info": {
+        "model": "CR2032 battery holder",
+        "category": "接插件 (电池座)",
+        "description": "1x2032 纽扣电池座"
+      },
+      "retrieval_task": {
+        "query": "如果需要一个 CR2032 纽扣电池座，只要回答为索引中的合法 1x2032 电池座封装即可。哪些名称都满足要求？",
+        "acceptable_footprints": [
+          "BatteryHolder_Keystone_1057_1x2032",
+          "BatteryHolder_Keystone_1058_1x2032",
+          "BatteryHolder_Keystone_1060_1x2032",
+          "BatteryHolder_Keystone_3002_1x2032",
+          "BatteryHolder_MPD_BC2003_1x2032",
+          "BatteryHolder_Multicomp_BC-2001_1x2032",
+          "BatteryHolder_Renata_SMTU2032-LF_1x2032"
+        ],
+        "evaluation_criteria": "命中任一 1x2032 电池座即可；CR1220、2450、AA/AAA 等其他规格均不应判对。"
+      }
+    },
+    {
+      "id": 20,
+      "component_info": {
+        "model": "4-element resistor array 0603",
+        "category": "基础无源器件 (电阻阵列)",
+        "description": "4 联 0603 电阻阵列"
+      },
+      "retrieval_task": {
+        "query": "对于一个 4 元件的 0603 电阻阵列，如果只要求返回合法的阵列封装名称，哪些答案都可以？",
+        "acceptable_footprints": [
+          "R_Array_Concave_4x0603",
+          "R_Array_Convex_4x0603"
+        ],
+        "evaluation_criteria": "需命中 4x0603 阵列封装之一；2x0603、4x0402 或 5x0603 都不应算正确。"
+      }
+    }
+  ]
+}
