@@ -54,10 +54,6 @@
   ]
 }
 ```
-## 辅助脚本：
-
-- [footprints.py](/c:/Users/huang/Desktop/结构化测试集/footprints.py:1)
-  - 用于从 KiCad `footprints` 目录扫描并生成封装索引
 
 ## 结构化检索函数
 参考的检索工具示例：query_footprint_library.py
